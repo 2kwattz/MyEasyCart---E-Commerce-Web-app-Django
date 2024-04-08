@@ -11,6 +11,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 from django.http import JsonResponse
 from .serializers import ContactSerializer
+from .serializers import UserRegistrationSerializer
 import requests
 from rest_framework_simplejwt.tokens import RefreshToken
 
@@ -240,11 +241,16 @@ def products(request):
 
 class UserRegistrationView(APIView):
 
-    def get(self, request, format=None):    
+    def post(self, request, format=None):    
         # return render(request, 'shop/registration.html')
-        return Response({'msg': 'Reg Success'})
+        serializer = UserRegistrationSerializer(data = request.data)
+
+        if serializer.is_valid(raise_exception=True):
+            user = serializer.save()
+            return Response({'msg': 'Reg Success'})
+        
     
-    def post(self, request, format=None):
+    def get(self, request, format=None):
         
         return render(request, 'shop/registration.html')
 

@@ -7,18 +7,13 @@
 {% block body%}
 <div class="container" style="width: 40%">
     <h3 class="subheading text-center mt-4"> Registration Page</h3>
-    <form action="/shop/registration/" method="POST">
+    <form action="/shop/register/" method="POST">
 
         {% csrf_token %}
 
         <div class="mb-3 mt-3">
-            <label for="text" class="form-label">First Name:</label>
-            <input type="text" class="form-control" id="text" placeholder="Enter First Name" name="first_name">
-          </div>
-
-          <div class="mb-3 mt-3">
-            <label for="text" class="form-label">Last Name:</label>
-            <input type="text" class="form-control" id="text" placeholder="Enter Last Name" name="last_name">
+            <label for="text" class="form-label">Full Name:</label>
+            <input type="text" class="form-control" id="text" placeholder="Enter First Name" name="name">
           </div>
 
           <div class="mb-3 mt-3">
@@ -33,7 +28,7 @@
 
           <div class="mb-3 mt-3">
             <label for="email" class="form-label">Password</label>
-            <input type="password" class="form-control" id="password" placeholder="Enter Password" name="password1">
+            <input type="password" class="form-control" id="password" placeholder="Enter Password" name="password">
           </div>
 
         <div class="mb-3 mt-3">
