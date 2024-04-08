@@ -75,7 +75,6 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser):
 
-        
     class Meta:
         db_table = 'shop_user'
         

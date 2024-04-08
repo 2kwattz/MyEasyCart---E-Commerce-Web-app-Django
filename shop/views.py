@@ -9,13 +9,14 @@ from django.core.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import serializers
+from rest_framework.permissions import IsAuthenticated 
 from django.contrib.auth import authenticate
 from .renderers import UserRenderer
 
 
 from rest_framework.views import APIView
 from django.http import JsonResponse
-from .serializers import ContactSerializer,UserRegistrationSerializer,UserLoginSerializer
+from .serializers import ContactSerializer,UserRegistrationSerializer,UserLoginSerializer,UserProfileSerializer
 import requests
 from rest_framework_simplejwt.tokens import RefreshToken
 
@@ -339,9 +340,16 @@ class UserLoginView(APIView):
             # Serializer is not valid
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    
 
+class UserProfileView(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self, request, format=None):
+        serializer = UserProfileSerializer(request.user)
 
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+class UserChangePasswordView(APIView):
+    pass
 
 def custom_404_view(request, exception):
     return render(request, '404.html', status=404)

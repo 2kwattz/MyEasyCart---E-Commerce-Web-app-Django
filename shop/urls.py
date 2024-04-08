@@ -3,8 +3,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import handler404
 from shop.views import custom_404_view
-from .views import UserRegistrationView
-from .views import UserLoginView
+from .views import UserRegistrationView, UserProfileView, UserLoginView
 from . import views
 
 urlpatterns = [
@@ -21,7 +20,8 @@ urlpatterns = [
     path('api/contacts/', views.contact_api, name='contact_api'),
     path('contactdata/', views.contactData, name='contactData'),
     path('registration/', views.registration, name="shopRegistration"),
-    path('register/', UserRegistrationView.as_view(), name="shopRegister" )
+    path('register/', UserRegistrationView.as_view(), name="shopRegister" ),
+    path('userprofile/', UserProfileView.as_view(), name="shopProfile" )
 
 ]
 

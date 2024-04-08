@@ -11,6 +11,11 @@ class ContactSerializer(serializers.ModelSerializer):
         model = Contact
         fields = '__all__'
 
+class LoginDataSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = '__all__'
+
 class UserRegistrationSerializer(serializers.ModelSerializer):
 
     password2 = serializers.CharField(style={'input_type' : 'password'}, write_only=True)
@@ -52,3 +57,9 @@ class UserLoginSerializer(serializers.Serializer):
 
         attrs['user'] = user
         return attrs
+    
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model= User
+        fields = ['id','email','name']
