@@ -240,8 +240,9 @@ def products(request):
 
 class UserRegistrationView(APIView):
 
-    def get(self, request, format=None):
-        return render(request, 'shop/registration.html')
+    def get(self, request, format=None):    
+        # return render(request, 'shop/registration.html')
+        return Response({'msg': 'Reg Success'})
     
     def post(self, request, format=None):
         

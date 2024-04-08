@@ -41,7 +41,8 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
 
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+    ),
+    'DEFAULT_RENDERED_CLASSES' : ('rest_framework.renderers.JSONRenderer',)
 
 }
 
@@ -100,6 +101,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blog',
     'shop',
+    'rest_framework',
     'rest_framework_simplejwt',
     "corsheaders",
 ]
