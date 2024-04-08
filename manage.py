@@ -2,6 +2,13 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+# from django.conf import settings
+
+# Set DJANGO_SETTINGS_MODULE environment variable
+# os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ecom.settings')
+
+# # Call settings.configure()
+# settings.configure()
 
 
 def main():

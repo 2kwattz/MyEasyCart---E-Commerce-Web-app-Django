@@ -237,11 +237,15 @@ def products(request):
 
     return render(request, 'shop/products.html', {'productsList': productsList, 'isSuccess': isSuccess, 'alert': alert})
 
+
 class UserRegistrationView(APIView):
-    def post(self, request, format=None):
-        return Response({'msg': 'Registration Success'})
+
     def get(self, request, format=None):
-        return Response({'msg': 'Registration Page Loaded'})
+        return render(request, 'shop/registration.html')
+    
+    def post(self, request, format=None):
+        
+        return render(request, 'shop/registration.html')
 
 
 def registration(request):
