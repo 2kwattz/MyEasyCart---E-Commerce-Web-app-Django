@@ -12,7 +12,7 @@
 
     <div class="container bg-light mt-4 p-2">
       <h4 class="text-center mt-3"> Login </h4>
-      <form action="/shop/login/" method="POST">
+      <form action="/shop/login2/" method="POST">
         {% csrf_token %}
         <div class="mb-3 mt-3">
           <label for="email" class="form-label">Email:</label>
@@ -20,7 +20,7 @@
         </div>
         <div class="mb-3">
           <label for="pwd" class="form-label">Password:</label>
-          <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd">
+          <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="password">
         </div>
         <div class="form-check mb-3">
           <label class="form-check-label">

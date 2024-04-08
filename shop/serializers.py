@@ -1,5 +1,7 @@
 from rest_framework import serializers
 from .models import Contact
+from django.contrib.auth import authenticate
+
 # serializers.py
 from .models import User
 
@@ -19,6 +21,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         extra_kwargs={
             'password':{'write_only': True}
         }
+
     def validate(self,attrs):
         password = attrs.get('password')
         password2 = attrs.get('password2')
@@ -31,8 +34,21 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
     def create(self, validate_data):
         return User.objects.create_user(**validate_data)
     
-class UserLoginSerializer(serializers.ModelSerializer):
     
-     class Meta:
-        model = User
-        fields = ['email','password']
+class UserLoginSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    password = serializers.CharField()
+
+    def validate(self, attrs):
+        email = attrs.get('email')
+        password = attrs.get('password')
+
+        if email and password:
+            user = authenticate(email=email, password=password)
+            if not user:
+                raise serializers.ValidationError("Incorrect email or password")
+        else:
+            raise serializers.ValidationError("Both email and password are required")
+
+        attrs['user'] = user
+        return attrs

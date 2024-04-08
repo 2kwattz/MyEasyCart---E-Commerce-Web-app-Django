@@ -9,12 +9,13 @@ from django.core.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import serializers
+from django.contrib.auth import authenticate
+from .renderers import UserRenderer
+
 
 from rest_framework.views import APIView
 from django.http import JsonResponse
-from .serializers import ContactSerializer
-from .serializers import UserRegistrationSerializer
-from .serializers import UserLoginSerializer
+from .serializers import ContactSerializer,UserRegistrationSerializer,UserLoginSerializer
 import requests
 from rest_framework_simplejwt.tokens import RefreshToken
 
@@ -241,6 +242,13 @@ def products(request):
 
     return render(request, 'shop/products.html', {'productsList': productsList, 'isSuccess': isSuccess, 'alert': alert})
 
+def get_tokens_for_user(user):
+    refresh = RefreshToken.for_user(user)
+
+    return {
+        'refresh': str(refresh),
+        'access': str(refresh.access_token),
+    }
 
 class UserRegistrationView(APIView):
 
@@ -250,7 +258,9 @@ class UserRegistrationView(APIView):
 
         if serializer.is_valid(raise_exception=True):
             user = serializer.save()
-            return Response({'msg': 'Reg Success'})
+            token = get_tokens_for_user(user)
+
+            return Response({'token': token, 'msg': 'Reg Success'})
         
     
     def get(self, request, format=None):
@@ -280,27 +290,58 @@ def registration(request):
 
         user.set_password(password)
         user.save()
+       
 
 
         # user.save()
         print("User Created")
-        return redirect('/shop/products')
-        
+        return render(request, 'shop/registration.html', {'msg': 'Reg Successful'})
 
     return render(request, 'shop/registration.html')
 
+# class UserLoginView(APIView):
+#     def post(self,request,format=None):
+#         serializer = UserLoginSerializer(data=request.data)
+#         if serializer.is_valid(raise_exception=True):
+#             email = serializer.data.get('email')
+#             password = serializer.data.get('password')
+#             user = authenticate(email=email, password=password)
+
+#             if user is not None:
+#                 return Response({'msg':'Login Success'})
+#             else:
+#                 return Response({'errors': {'non_field_errors' : ['Email Or Password is not valid']}}, status=status.HTTP_404_NOT_FOUND)
+#     def get(self,request,format=None):
+#         return render(request, 'shop/login.html')
+
 class UserLoginView(APIView):
-    def post(self,request,format=None):
+
+    def get(self, request, format=None):
+        return render(request, 'shop/login.html')   
+
+    def post(self, request, format=None):
         serializer = UserLoginSerializer(data=request.data)
-        return Response({'msg':'Login Success'})
+        if serializer.is_valid(raise_exception=True):
+            email = serializer.data.get('email')
+            password = serializer.data.get('password')
 
-def get_tokens_for_user(user):
-    refresh = RefreshToken.for_user(user)
+            user = authenticate(request, email=email, password=password)
 
-    return {
-        'refresh': str(refresh),
-        'access': str(refresh.access_token),
-    }
+            if user is not None:
+                # Authentication successful
+                token = get_tokens_for_user(user)
+
+                return Response({'token':token,'msg': 'Login Success'})
+            else:
+                # Authentication failed
+                return Response({'errors': {'non_field_errors': ['Email or Password is not valid']}}, status=status.HTTP_404_NOT_FOUND)
+        else:
+            # Serializer is not valid
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    
+
+
 
 def custom_404_view(request, exception):
     return render(request, '404.html', status=404)

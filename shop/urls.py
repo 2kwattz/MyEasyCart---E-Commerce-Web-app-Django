@@ -4,6 +4,7 @@ from django.urls import path, include
 from django.conf.urls import handler404
 from shop.views import custom_404_view
 from .views import UserRegistrationView
+from .views import UserLoginView
 from . import views
 
 urlpatterns = [
@@ -14,6 +15,7 @@ urlpatterns = [
     path('productview', views.productView, name="shopProductView"),
     path('checkout/', views.checkout, name="shopCheckout"),
     path('login/', views.login, name="shopLogin"),
+    path('login2/', UserLoginView.as_view(), name="shopLogin2"),
     path('contact/', views.contact, name="shopContact"),
     path('products/', views.products, name="shopProducts"),
     path('api/contacts/', views.contact_api, name='contact_api'),
