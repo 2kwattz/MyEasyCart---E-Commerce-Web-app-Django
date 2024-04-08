@@ -71,6 +71,8 @@ class UserManager(BaseUserManager):
         return user
     
 
+# User Class 
+
 class User(AbstractBaseUser):
 
         
