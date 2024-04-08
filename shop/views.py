@@ -6,6 +6,9 @@ from django import forms
 from .models import Contact
 from .models import Products
 from django.core.exceptions import ValidationError
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.views import APIView
 from django.http import JsonResponse
 from .serializers import ContactSerializer
 import requests
@@ -233,6 +236,12 @@ def products(request):
     # print(productsList)
 
     return render(request, 'shop/products.html', {'productsList': productsList, 'isSuccess': isSuccess, 'alert': alert})
+
+class UserRegistrationView(APIView):
+    def post(self, request, format=None):
+        return Response({'msg': 'Registration Success'})
+    def get(self, request, format=None):
+        return Response({'msg': 'Registration Page Loaded'})
 
 
 def registration(request):
