@@ -8,10 +8,13 @@ from .models import Products
 from django.core.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework import serializers
+
 from rest_framework.views import APIView
 from django.http import JsonResponse
 from .serializers import ContactSerializer
 from .serializers import UserRegistrationSerializer
+from .serializers import UserLoginSerializer
 import requests
 from rest_framework_simplejwt.tokens import RefreshToken
 
@@ -285,6 +288,11 @@ def registration(request):
         
 
     return render(request, 'shop/registration.html')
+
+class UserLoginView(APIView):
+    def post(self,request,format=None):
+        serializer = UserLoginSerializer(data=request.data)
+        return Response({'msg':'Login Success'})
 
 def get_tokens_for_user(user):
     refresh = RefreshToken.for_user(user)
