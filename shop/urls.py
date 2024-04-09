@@ -21,7 +21,8 @@ urlpatterns = [
     path('contactdata/', views.contactData, name='contactData'),
     path('registration/', views.registration, name="shopRegistration"),
     path('register/', UserRegistrationView.as_view(), name="shopRegister" ),
-    path('userprofile/', UserProfileView.as_view(), name="shopProfile" )
+    path('userprofile/', UserProfileView.as_view(), name="shopProfile" ),
+    path('jsoneg/', views.jsoneg, name="jsonEg")
 
 ]
 

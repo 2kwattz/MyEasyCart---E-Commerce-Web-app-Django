@@ -300,6 +300,10 @@ def registration(request):
 
     return render(request, 'shop/registration.html')
 
+def jsoneg(request):
+    jsonData = [{'Name':'Roshan Bhatia','Age':21,'Passion':'Coding,Photography,Military Aviation'},{'Name':'Tom Bhatia','Age':21,'Passion':'Aerodynamics,Military Aviation'}]
+    
+    return render(request, 'shop/jsoneg.html', context = {'jsonData': jsonData})
 # class UserLoginView(APIView):
 #     def post(self,request,format=None):
 #         serializer = UserLoginSerializer(data=request.data)
@@ -350,6 +354,7 @@ class UserProfileView(APIView):
 
 class UserChangePasswordView(APIView):
     pass
+
 
 def custom_404_view(request, exception):
     return render(request, '404.html', status=404)
