@@ -301,7 +301,7 @@ def registration(request):
     return render(request, 'shop/registration.html')
 
 def jsoneg(request):
-    jsonData = [{'Name':'Roshan Bhatia','Age':21,'Passion':'Coding,Photography,Military Aviation'},{'Name':'Tom Bhatia','Age':21,'Passion':'Aerodynamics,Military Aviation'}]
+    jsonData = [{'Name':'Roshan Bhatia','Age':21,'Passion':'Coding,Photography,Military Aviation'},{'Name':'Hari Singh','Age':4,'Passion':'Football'},{'Name':'Parmod Jackson','Age':11,'Passion':'Singing'},{'Name':'Narendra Modi','Age':74,'Passion':'Politics,Leadership,Tourism,Defence'}]
     
     return render(request, 'shop/jsoneg.html', context = {'jsonData': jsonData})
 # class UserLoginView(APIView):
