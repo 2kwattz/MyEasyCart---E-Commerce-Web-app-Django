@@ -22,7 +22,16 @@
             </thead>
             <tbody>
 
-                
+                <!-- String Slicing Op -->
+                {{text|truncatechars:50}}
+
+                <!-- If/else in templates -->
+
+                {% if 'AMCA Mk1' in jets %}
+                <h1> AMCA MK1 present in list </h1>
+                {% else %}
+                <h1> AMCA MK1 will take time </h1>
+                {% endif %}
 
                 {% for json in jsonData %}
                 <tr>
@@ -45,5 +54,7 @@
           
         </table>
     </div>
+
+    
 </body>
 </html>

@@ -291,9 +291,6 @@ def registration(request):
 
         user.set_password(password)
         user.save()
-       
-
-
         # user.save()
         print("User Created")
         return render(request, 'shop/registration.html', {'msg': 'Reg Successful'})
@@ -301,9 +298,12 @@ def registration(request):
     return render(request, 'shop/registration.html')
 
 def jsoneg(request):
-    jsonData = [{'Name':'Roshan Bhatia','Age':21,'Passion':'Coding,Photography,Military Aviation'},{'Name':'Hari Singh','Age':4,'Passion':'Football'},{'Name':'Parmod Jackson','Age':11,'Passion':'Singing'},{'Name':'Narendra Modi','Age':74,'Passion':'Politics,Leadership,Tourism,Defence'}]
-    
-    return render(request, 'shop/jsoneg.html', context = {'jsonData': jsonData})
+
+    # text = " Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, qui quas quisquam beatae mollitia minima ut odio quaerat distinctio at velit sed officiis inventore! Error inventore tempora accusamus repellendus! Eius assumenda similique molestiae fugit eveniet in, voluptas eos veniam recusandae perspiciatis illo eligendi minus, fugiat amet accusamus modi aut asperiores quod deserunt quibusdam, optio velit! Cumque rerum ullam necessitatibus corrupti perferendis deleniti perspiciatis porro, voluptas impedit numquam suscipit velit quasi error quis excepturi, laudantium commodi distinctio, vitae esse adipisci assumenda. Dolor accusamus exercitationem iste, sapiente cum vero, suscipit nemo unde modi eveniet aspernatur nihil voluptate reiciendis id et ducimus fugiat?"
+
+    # jsonData = [{'Name':'Roshan Bhatia','Age':21,'Passion':'Coding,Photography,Military Aviation'},{'Name':'Hari Singh','Age':4,'Passion':'Football'},{'Name':'Parmod Jackson','Age':11,'Passion':'Singing'},{'Name':'Narendra Modi','Age':74,'Passion':'Politics,Leadership,Tourism,Defence'}]
+    # iaf_future = ['Dassault Rafale','Mig29 UPG','Tejas MK1','Tejas MK1 Trainer','AMCA Mk1','Tejas MK2','MMRCA 2.0S']
+    return render(request, 'shop/jsoneg.html', context = {'jsonData': jsonData, 'text': text, 'jets': iaf_future})
 # class UserLoginView(APIView):
 #     def post(self,request,format=None):
 #         serializer = UserLoginSerializer(data=request.data)
